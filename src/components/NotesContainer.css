@@ -1,0 +1,9 @@
+.Note {
+  height: 23vh;
+  width: 15vw;
+  margin: 3%;
+  background-color: beige;
+  float: left;
+  text-align: left;
+  padding: 1%;
+}
