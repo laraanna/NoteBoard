@@ -20,18 +20,10 @@ class NotesContainer extends PureComponent {
     .catch(err => console.log(err))
   }
 
-  renderOneNote = (note) => {
-    return(
-      <div className="Note" key={note.id}>
-        <h1>{note.title}</h1>
-        <p> {note.body}</p>
-      </div>
-    )
-  }
-
   render(){
     return(
       <div className="NotesContainer">
+      <button className="NewNote">Create Note</button>
         {this.state.notes.map((note) => {
           return (<Note note={note} key={note.id}/>)
         })}
