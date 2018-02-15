@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react'
 import axios from 'axios'
 import './NotesContainer.css'
+import Note from './Note'
 
 class NotesContainer extends PureComponent {
   constructor(props) {
@@ -31,7 +32,9 @@ class NotesContainer extends PureComponent {
   render(){
     return(
       <div className="NotesContainer">
-        {this.state.notes.map(this.renderOneNote)}
+        {this.state.notes.map((note) => {
+          return (<Note note={note} key={note.id}/>)
+        })}
       </div>
     )
   }
