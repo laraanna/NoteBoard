@@ -3,12 +3,14 @@ import axios from 'axios'
 import './NotesContainer.css'
 import Note from './Note'
 import update from 'immutability-helper'
+import NoteForm from './NoteForm'
 
 class NotesContainer extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      notes: []
+      notes: [],
+      editingNoteId: null
     }
   }
 
@@ -36,7 +38,10 @@ class NotesContainer extends PureComponent {
       const notes = update(this.state.notes, {
         $splice:[[0,0, res.data]]
       })
-      this.setState({note: notes})
+      this.setState({
+        notes: notes,
+        editingNoteId: res.data.id
+      })
     })
     .catch(err => console.log(err))
   }
@@ -46,7 +51,11 @@ class NotesContainer extends PureComponent {
       <div className="NotesContainer">
       <button className="NewNote" onClick={this.addNewNote}>Create Note</button>
         {this.state.notes.map((note) => {
-          return (<Note note={note} key={note.id}/>)
+          if(this.state.editingNoteId === note.id){
+            return(<NoteForm note={note} key={note.id} />)
+          } else {
+            return (<Note note={note} key={note.id}/>)
+          }
         })}
       </div>
     )
