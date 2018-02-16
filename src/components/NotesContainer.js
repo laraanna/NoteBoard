@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react'
 import axios from 'axios'
 import './NotesContainer.css'
 import Note from './Note'
+import update from 'immutability-helper'
 
 class NotesContainer extends PureComponent {
   constructor(props) {
@@ -20,10 +21,30 @@ class NotesContainer extends PureComponent {
     .catch(err => console.log(err))
   }
 
+  addNewNote = () => {
+    axios.post(
+      'http://localhost:3001/api/v1/notes',
+      { note:
+        {
+          title: '',
+          body: ''
+        }
+      }
+    )
+    .then(res => {
+      console.log(res)
+      const notes = update(this.state.notes, {
+        $splice:[[0,0, res.data]]
+      })
+      this.setState({note: notes})
+    })
+    .catch(err => console.log(err))
+  }
+
   render(){
     return(
       <div className="NotesContainer">
-      <button className="NewNote">Create Note</button>
+      <button className="NewNote" onClick={this.addNewNote}>Create Note</button>
         {this.state.notes.map((note) => {
           return (<Note note={note} key={note.id}/>)
         })}
