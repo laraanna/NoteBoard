@@ -1,20 +1,36 @@
+.NotesContainer {
+  padding: 2%;
+}
 .Note {
+  border: 2px solid #536896;
   height: 23vh;
   width: 15vw;
   margin: 3%;
-  background-color: beige;
+  background-color: #ffffff;
   float: left;
   text-align: left;
   padding: 1%;
+  box-shadow: 9px 9px #536896;
+  border-radius: 5px;
 }
 
 .NewNote {
-  background: #000000;
-   color: white;
-   border: none;
-   font-size: 18px;
-   cursor: pointer;
-   margin-right: 10px;
-   margin-left: 10px;
-   padding:10px;
+  font-family: 'Dosis', sans-serif;
+  position: fixed;
+  bottom: 7%;
+  right: 3%;
+  background: #536896;
+  color: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding:1%;
+  border-radius: 5px;
+  border: 3px solid #ffffff;
+}
+
+span {
+
 }

@@ -18,7 +18,6 @@ class NotesContainer extends PureComponent {
   componentDidMount(){
     axios.get('http://localhost:3001/api/v1/notes.json')
     .then(res => {
-      console.log(res)
       this.setState({notes: res.data})
     })
     .catch(err => console.log(err))
@@ -35,7 +34,6 @@ class NotesContainer extends PureComponent {
       }
     )
     .then(res => {
-      console.log(res)
       const notes = update(this.state.notes, {
         $splice:[[0,0, res.data]]
       })
@@ -57,7 +55,8 @@ class NotesContainer extends PureComponent {
   }
 
   enableEditing = (id) => {
-    this.setState({editingNoteId: id})
+    this.setState({editingNoteId: id},
+    () => { this.title.focus() })
   }
 
   deleteNote = (id) => {
@@ -84,7 +83,7 @@ class NotesContainer extends PureComponent {
       </span>
         {this.state.notes.map((note) => {
           if(this.state.editingNoteId === note.id){
-            return(<NoteForm note={note} key={note.id} updateNote={this.updateNote} resetNotification={this.resetNotification}/>)
+            return(<NoteForm note={note} key={note.id} updateNote={this.updateNote} titleRef={input => this.title = input} resetNotification={this.resetNotification}/>)
           } else {
             return (<Note note={note} key={note.id} onClick={this.enableEditing} onDelete={this.deleteNote} />)
           }

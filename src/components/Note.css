@@ -2,9 +2,9 @@
   visibility: hidden;
   float: right;
   margin: 5px;
-  font-size: 14px;
+  font-size: 20px;
   cursor: pointer;
-  color: red;
+  color: #9a6565;
 }
 
 .Note:hover .deleteButton {
