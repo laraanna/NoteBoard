@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react'
 import axios from 'axios'
 import './NoteForm.css'
 
+
 class NoteForm extends PureComponent {
   constructor(props) {
     super(props)
@@ -9,14 +10,6 @@ class NoteForm extends PureComponent {
       title: this.props.note.title,
       body: this.props.note.body
     }
-  }
-
-  updateNote = (note) => {
-    const noteIndex = this.state.notes.findIndex(n => n.id === notes.id)
-    const notes = update(this.state.notes, {
-      [noteIndex]: {$set: note}
-    })
-    this.setState({notes: notes})
   }
 
   handleInput = (e) => {
@@ -30,19 +23,19 @@ class NoteForm extends PureComponent {
     }
     axios.put(
       `http://localhost:3001/api/v1/notes/${this.props.note.id}`,
-      {
-        note: note
-      })
-      .then(res => {
-        console.log(res)
-        this.props.updateNote(res.data)
+      {note: note}
+      )
+      .then(response => {
+        console.log(response)
+        this.props.updateNote(response.data)
       })
       .catch(err => console.log(err))
     }
+
   render(){
     return(
       <div className="Note">
-        <form onBlur={this.handleBlur} updateNote={this.updateNote}>
+        <form onBlur={this.handleBlur} >
           <input className='input' type="text"
             name="title" placeholder='Enter a Title' value={this.state.title} onChange={this.handleInput} />
           <textarea className='input' name="body"

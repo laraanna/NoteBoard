@@ -46,13 +46,21 @@ class NotesContainer extends PureComponent {
     .catch(err => console.log(err))
   }
 
+  updateNote = (note) => {
+    const noteIndex = this.state.notes.findIndex(x => x.id === note.id)
+    const notes = update(this.state.notes, { [noteIndex]: {$set: note} })
+    this.setState({
+      notes: notes
+    })
+  }
+
   render(){
     return(
       <div className="NotesContainer">
       <button className="NewNote" onClick={this.addNewNote}>Create Note</button>
         {this.state.notes.map((note) => {
           if(this.state.editingNoteId === note.id){
-            return(<NoteForm note={note} key={note.id} />)
+            return(<NoteForm note={note} key={note.id} updateNote={this.updateNote} />)
           } else {
             return (<Note note={note} key={note.id}/>)
           }
