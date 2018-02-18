@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react'
+import './Note.css'
 
 class Note extends PureComponent{
   handleClick = () => {
@@ -7,6 +8,9 @@ class Note extends PureComponent{
   render(){
     return(
       <div className="Note">
+        <span className="deleteButton">
+          x
+        </span>
         <h4 onClick={this.handleClick}>{this.props.note.title}</h4>
         <p onClick={this.handleClick}>{this.props.note.body}</p>
       </div>
