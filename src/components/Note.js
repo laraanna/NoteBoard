@@ -5,10 +5,14 @@ class Note extends PureComponent{
   handleClick = () => {
     this.props.onClick(this.props.note.id)
   }
+
+  handleDelete = () => {
+    this.props.onDelete(this.props.note.id)
+  }
   render(){
     return(
       <div className="Note">
-        <span className="deleteButton">
+        <span className="deleteButton" onClick={this.handleDelete}>
           x
         </span>
         <h4 onClick={this.handleClick}>{this.props.note.title}</h4>

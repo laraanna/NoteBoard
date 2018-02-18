@@ -58,6 +58,17 @@ class NotesContainer extends PureComponent {
     this.setState({editingNoteId: id})
   }
 
+  deleteNote = (id) => {
+    axios.delete(`http://localhost:3001/api/v1/notes/${id}`)
+    .then(res => {
+      const noteIndex = this.state.notes.findIndex(x => x.id === id)
+      const notes = update(this.state.notes, { $splice: [[noteIndex, 1]]})
+      this.setState({notes: notes})
+    })
+    .catch(err => console.log(err))
+  }
+
+
   render(){
     return(
       <div className="NotesContainer">
@@ -66,7 +77,7 @@ class NotesContainer extends PureComponent {
           if(this.state.editingNoteId === note.id){
             return(<NoteForm note={note} key={note.id} updateNote={this.updateNote} />)
           } else {
-            return (<Note note={note} key={note.id} onClick={this.enableEditing}/>)
+            return (<Note note={note} key={note.id} onClick={this.enableEditing} onDelete={this.deleteNote} />)
           }
         })}
       </div>
