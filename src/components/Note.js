@@ -6,7 +6,7 @@ class Note extends PureComponent{
   }
   render(){
     return(
-      <div className="Note" key={note.id}>
+      <div className="Note">
         <h4 onClick={this.handleClick}>{this.props.note.title}</h4>
         <p onClick={this.handleClick}>{this.props.note.body}</p>
       </div>

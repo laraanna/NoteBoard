@@ -54,6 +54,10 @@ class NotesContainer extends PureComponent {
     })
   }
 
+  enableEditing = (id) => {
+    this.setState({editingNoteId: id})
+  }
+
   render(){
     return(
       <div className="NotesContainer">
@@ -62,7 +66,7 @@ class NotesContainer extends PureComponent {
           if(this.state.editingNoteId === note.id){
             return(<NoteForm note={note} key={note.id} updateNote={this.updateNote} />)
           } else {
-            return (<Note note={note} key={note.id}/>)
+            return (<Note note={note} key={note.id} onClick={this.enableEditing}/>)
           }
         })}
       </div>
