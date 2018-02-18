@@ -10,7 +10,8 @@ class NotesContainer extends PureComponent {
     super(props)
     this.state = {
       notes: [],
-      editingNoteId: null
+      editingNoteId: null,
+      notification: ''
     }
   }
 
@@ -50,7 +51,8 @@ class NotesContainer extends PureComponent {
     const noteIndex = this.state.notes.findIndex(x => x.id === note.id)
     const notes = update(this.state.notes, { [noteIndex]: {$set: note} })
     this.setState({
-      notes: notes
+      notes: notes,
+      notification: 'Updated'
     })
   }
 
@@ -68,14 +70,21 @@ class NotesContainer extends PureComponent {
     .catch(err => console.log(err))
   }
 
+  resetNotification = () => {
+    this.setState({notification: ''})
+  }
+
 
   render(){
     return(
       <div className="NotesContainer">
       <button className="NewNote" onClick={this.addNewNote}>Create Note</button>
+      <span className="notification">
+        {this.state.notification}
+      </span>
         {this.state.notes.map((note) => {
           if(this.state.editingNoteId === note.id){
-            return(<NoteForm note={note} key={note.id} updateNote={this.updateNote} />)
+            return(<NoteForm note={note} key={note.id} updateNote={this.updateNote} resetNotification={this.resetNotification}/>)
           } else {
             return (<Note note={note} key={note.id} onClick={this.enableEditing} onDelete={this.deleteNote} />)
           }
